@@ -35,13 +35,17 @@ public:
 
 	void push_back (const std::string& val) ;
 
-	void push_front (const std::string& val) {
-		tete = new Chainon(val,tete);
-	}
+    //FAUTE: défintion et implémentation de push_front dans le header, possible, mais pas si aussi implémentée dans le
+    // .cpp, c'est le cas ici donc double implémentation => erreur
+	void push_front (const std::string& val);
 
 	bool empty() ;
 
 	size_t size() const ;
+
+    //FAUTE: on doir déclarer std::ostream & operator<< (std::ostream & os, const List & vec) ; comme friend pour
+    // qu'on puisse accéder aux champs privés de List sans être une méthode de List
+    friend std::ostream & operator<< (std::ostream & os, const List & vec) ;
 };
 
 

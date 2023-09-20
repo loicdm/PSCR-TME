@@ -1,3 +1,5 @@
+//FAUTE : le header List.h n'est pas importé
+#include "List.h"
 
 namespace pr {
 
@@ -9,15 +11,20 @@ size_t Chainon::length() {
 	if (next != nullptr) {
 		len += next->length();
 	}
-	return length();
+    //FAUTE: on doit retourner len et pas length, sinon boucle infinie + résultat jamais retourné
+	return len;
 }
 
-void Chainon::print (std::ostream & os) {
+//FAUTE: La signature de Chainon::print est différente de celle du header et donc n'est pas considérée comme implémentée
+// Il manque le "const"
+void Chainon::print (std::ostream & os) const {
 	os << data ;
 	if (next != nullptr) {
 		os << ", ";
+        //FAUTE: On ne doit continuer à afficher les chainons que si il y en a un suivant sinon accès mémoire à un
+        // chainon qui n'existe pas => segfault
+        next->print(os);
 	}
-	next->print(os);
 }
 
 // ******************  List
@@ -45,7 +52,8 @@ void List::push_front (const std::string& val) {
 	tete = new Chainon(val,tete);
 }
 
-bool empty() {
+//FAUTE: empty est une méthode de la classe List, il faut le spécifier
+bool List::empty() {
 	return tete == nullptr;
 }
 
@@ -57,15 +65,15 @@ size_t List::size() const {
 	}
 }
 
+
+// FAUTE: on doit déplacer l'implémentation à l'intérieur du namespace pr
+    std::ostream & operator<< (std::ostream & os, const List & vec)
+    {
+        os << "[";
+        if (vec.tete != nullptr) {
+            vec.tete->print (os) ;
+        }
+        os << "]";
+        return os;
+    }
 } // namespace pr
-
-std::ostream & operator<< (std::ostream & os, const pr::List & vec)
-{
-	os << "[";
-	if (vec.tete != nullptr) {
-		vec.tete->print (os) ;
-	}
-	os << "]";
-	return os;
-}
-
