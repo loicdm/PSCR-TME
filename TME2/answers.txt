@@ -1,3 +1,8 @@
 Found a total of 566193 words.
 
 Found a total of 20333 unique words.
+
+Found a total of 298 occurrences of word war
+Found a total of 114 occurrences of word peace.
+Found a total of 0 occurrences of word toto.
+
