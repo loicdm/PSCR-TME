@@ -1,0 +1,3 @@
+Found a total of 566193 words.
+
+Found a total of 20333 unique words.
