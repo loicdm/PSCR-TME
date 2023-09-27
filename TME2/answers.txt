@@ -6,3 +6,5 @@ Found a total of 298 occurrences of word war
 Found a total of 114 occurrences of word peace.
 Found a total of 0 occurrences of word toto.
 
+
+A chaque mot on doit rechercher dans la liste de mots uniques s'il n'est pas déjà présent, on a donc une complexité qui augmente de plus en plus et qui dépend de la taille de cette liste de mots uniques. On pourrait utiliser une structure de données pour laquelle la recherche est plus efficace, une table de hash par exemple.
