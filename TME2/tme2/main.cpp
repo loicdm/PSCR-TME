@@ -26,18 +26,17 @@ int main () {
 		word = regex_replace ( word, re, "");
 		// passe en lowercase
 		transform(word.begin(),word.end(),word.begin(),::tolower);
+        // word est maintenant "tout propre"
         auto word_count = word_map.find(word);
         if (word_count!= word_map.end()) {
-            word_map.emplace(word, 1);
-            // word est maintenant "tout propre"
+            (word_count->second)++;
             if (word_map.size() % 100 == 0)
                 // on affiche un mot "propre" sur 100
                 cout << word_map.size() << ": "<< word << endl;
-        } else {
-            word_map.emplace(word, word_count->second+1);
+        } else if (word_count == nullptr){
+            word_map[word]=1;
+
         }
-
-
 	}
 	input.close();
 
@@ -51,10 +50,15 @@ int main () {
               << duration_cast<milliseconds>(end - start).count()
               << "ms.\n";
 
+
     cout << "Found a total of " << word_map.size() << " unique words." << endl;
-    cout << "Found a total of " << word_map.find("war")->second << " occurrences of word war" << endl;
-    cout << "Found a total of " << word_map.find("peace")->second << " occurrences of word peace." << endl;
-    cout << "Found a total of " << word_map.find("toto")->second << " occurrences of word toto." << endl;
+
+    auto query_list = {"war", "peace", "toto"};
+
+    for (auto query: query_list) {
+        auto result = word_map.find(query);
+        cout << "Found a total of " << (result != nullptr ? result->second : 0) << " occurrences of word " << query << endl;
+    }
     return 0;
 }
 
